@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Existing User</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="form-container">
+    <h2>Search Existing User</h2>
+    <input placeholder="Email ID" id="searchEmail"><br>
+    <button onclick="searchUser()">Search</button>
+
+    <div id="editForm" style="display:none;">
+      <input id="editFirstName"><br>
+      <input id="editLastName"><br>
+      <input id="editDepartment"><br>
+      <input id="editManager"><br>
+      <input id="editEmail" readonly><br>
+
+      <select id="editRole">
+        <option>Admin</option>
+        <option>HelpDesk</option>
+        <option>IT Support</option>
+        <option>Regular User</option>
+      </select><br>
+
+      <button onclick="updateUser()">Submit</button>
+      <button onclick="disableUser()">Disable User</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

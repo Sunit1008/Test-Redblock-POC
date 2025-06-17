@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>New User</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="form-container">
+    <h2>New User</h2>
+    <input placeholder="First Name" id="firstName"><br>
+    <input placeholder="Last Name" id="lastName"><br>
+    <input placeholder="Department" id="department"><br>
+    <input placeholder="Email" id="email"><br>
+    <input placeholder="Manager" id="manager"><br>
+
+    <select id="status">
+      <option value="Active">Active</option>
+      <option value="Inactive">Inactive</option>
+    </select><br>
+
+    <select id="role">
+      <option>Admin</option>
+      <option>HelpDesk</option>
+      <option>IT Support</option>
+      <option>Regular User</option>
+    </select><br>
+
+    <button onclick="submitUser()">Submit</button>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
