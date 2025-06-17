@@ -7,23 +7,52 @@
 <body>
   <div class="form-container">
     <h2>New User</h2>
-    <input placeholder="First Name" id="firstName"><br>
-    <input placeholder="Last Name" id="lastName"><br>
-    <input placeholder="Department" id="department"><br>
-    <input placeholder="Email" id="email"><br>
-    <input placeholder="Manager" id="manager"><br>
 
+    <label for="firstName">First Name</label><br>
+    <input placeholder="First Name" id="firstName"><br><br>
+
+    <label for="lastName">Last Name</label><br>
+    <input placeholder="Last Name" id="lastName"><br><br>
+
+    <label for="department">Department</label><br>
+    <input placeholder="Department" id="department"><br><br>
+
+    <label for="email">Email</label><br>
+    <input placeholder="Email" id="email"><br><br>
+
+    <label for="manager">Manager</label><br>
+    <input placeholder="Manager" id="manager"><br><br>
+
+    <label for="costCenter">Cost Center</label><br>
+    <input placeholder="Cost Center" id="costCenter"><br><br>
+
+    <label for="title">Title</label><br>
+    <input placeholder="Title" id="title"><br><br>
+
+    <label for="jobFunction">Job Function</label><br>
+    <input placeholder="Job Function" id="jobFunction"><br><br>
+
+    <label for="company">Company</label><br>
+    <input placeholder="Company" id="company"><br><br>
+
+    <label for="location">Location</label><br>
+    <input placeholder="Location" id="location"><br><br>
+
+    <label for="status">Status</label><br>
     <select id="status">
       <option value="Active">Active</option>
       <option value="Inactive">Inactive</option>
-    </select><br>
+    </select><br><br>
 
+    <label for="role">Role</label><br>
     <select id="role">
       <option>Admin</option>
       <option>HelpDesk</option>
       <option>IT Support</option>
       <option>Regular User</option>
-    </select><br>
+	  <option>Security Admin</option>
+	  <option> </option>
+    </select><br><br>
 
     <button onclick="submitUser()">Submit</button>
   </div>
