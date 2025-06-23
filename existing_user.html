@@ -3,51 +3,28 @@
 <head>
   <title>Existing User</title>
   <link rel="stylesheet" href="style.css">
-  <style>
-    .form-container {
-      max-width: 600px;
-      margin: 20px auto;
-      padding: 20px;
-      border: 1px solid #ddd;
-      border-radius: 5px;
-    }
-    input, select, button {
-      margin: 10px 0;
-      padding: 8px;
-      width: 100%;
-    }
-    button {
-      background: #4CAF50;
-      color: white;
-      border: none;
-      cursor: pointer;
-    }
-  </style>
 </head>
 <body>
-
   <div class="form-container">
     <h2>Search Existing User</h2>
-
-    <input placeholder="Email ID" id="searchEmail">
+    <input placeholder="Email ID" id="searchEmail"><br>
     <button onclick="searchUser()">Search</button>
 
     <div id="editForm" style="display:none;">
-      <input placeholder="First Name" id="editFirstName">
-      <input placeholder="Last Name" id="editLastName">
-      <input placeholder="Department" id="editDepartment">
-      <input placeholder="Manager" id="editManager">
-      <input placeholder="Email" id="editEmail" readonly>
+      <input id="editFirstName"><br>
+      <input id="editLastName"><br>
+      <input id="editDepartment"><br>
+      <input id="editManager"><br>
+      <input id="editEmail" readonly><br>
 
       <select id="editRole">
         <option>Admin</option>
         <option>HelpDesk</option>
         <option>IT Support</option>
         <option>Regular User</option>
-        <option>None</option>
-      </select>
+      </select><br>
 
-      <button onclick="updateUser()">Update User</button>
+      <button onclick="updateUser()">Submit</button>
       <button id="toggleUserBtn" onclick="toggleUserStatus()">Toggle Status</button>
     </div>
   </div>
