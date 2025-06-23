@@ -31,17 +31,18 @@ function populateTable() {
   const tbody = document.querySelector("#userTable tbody");
   tbody.innerHTML = "";
   users.forEach(user => {
+    // Add clickable status with visual feedback
     let row = `<tr>
       <td>${user.first}</td>
       <td>${user.last}</td>
       <td>${user.dept}</td>
       <td>${user.email}</td>
       <td>${user.manager}</td>
-      <td>${user.status}</td>
-      <td>${user.role}</td>
-      <td>
-        <button onclick="toggleUser Status('${user.email}')">${user.status === "Inactive" ? "Enable" : "Disable"}</button>
+      <td onclick="toggleUserStatus('${user.email}')" 
+          style="cursor: pointer; ${user.status === 'Active' ? 'color: green;' : 'color: red;'}">
+        ${user.status} (click to toggle)
       </td>
+      <td>${user.role}</td>
     </tr>`;
     tbody.innerHTML += row;
   });
@@ -51,19 +52,26 @@ if (window.location.pathname.includes("repository.html")) {
   populateTable();
 }
 
-function searchUser () {
-  const email = document.getElementById("searchEmail").value;
-  const user = users.find(u => u.email === email);
+function searchUser() {
+  const email = document.getElementById("searchEmail").value.trim();
+
+  const user = users.find(u => u.email.toLowerCase() === email.toLowerCase());
+
   if (user) {
     document.getElementById("editForm").style.display = "block";
-    document.getElementById("editFirstName").value = user.first;
-    document.getElementById("editLastName").value = user.last;
-    document.getElementById("editDepartment").value = user.dept;
-    document.getElementById("editManager").value = user.manager;
-    document.getElementById("editEmail").value = user.email;
-    document.getElementById("editRole").value = user.role;
+    document.getElementById("editFirstName").value = user.first || "";
+    document.getElementById("editLastName").value = user.last || "";
+    document.getElementById("editDepartment").value = user.dept || "";
+    document.getElementById("editManager").value = user.manager || "";
+    document.getElementById("editEmail").value = user.email || "";
+    document.getElementById("editRole").value = user.role || "None";
+
+    // Update button text based on status
+    const toggleBtn = document.getElementById("toggleUserBtn");
+    toggleBtn.textContent = user.status === "Inactive" ? "Enable User" : "Disable User";
   } else {
-    alert("User  not found");
+    alert("User not found!");
+    document.getElementById("editForm").style.display = "none";
   }
 }
 
@@ -82,12 +90,18 @@ function updateUser () {
   }
 }
 
-function toggleUser Status(email) {
+function toggleUserStatus() {
+  const email = document.getElementById("editEmail").value;
   const user = users.find(u => u.email === email);
+
   if (user) {
-    user.status = user.status === "Inactive" ? "Active" : "Inactive"; // Toggle status
+    user.status = user.status === "Active" ? "Inactive" : "Active";
     saveUsers();
-    alert(`User  ${user.status === "Inactive" ? "disabled" : "enabled"}.`);
-    populateTable(); // Refresh the table to reflect changes
+
+    // Update button text after toggle
+    const toggleBtn = document.getElementById("toggleUserBtn");
+    toggleBtn.textContent = user.status === "Inactive" ? "Enable User" : "Disable User";
+
+    alert(`User is now ${user.status}.`);
   }
 }
