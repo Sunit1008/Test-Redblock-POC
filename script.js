@@ -4,18 +4,27 @@ function saveUsers() {
   localStorage.setItem("users", JSON.stringify(users));
 }
 
-function submitUser() {
+function submitUser () {
+  const email = document.getElementById("email").value;
+  // Check if user already exists
+  const existingUser  = users.find(u => u.email === email);
+  if (existingUser ) {
+    alert("Error: User already exists.");
+    return;
+  }
+
   const user = {
     first: document.getElementById("firstName").value,
     last: document.getElementById("lastName").value,
     dept: document.getElementById("department").value,
-    email: document.getElementById("email").value,
+    email: email,
     manager: document.getElementById("manager").value,
     status: document.getElementById("status").value,
     role: document.getElementById("role").value
   };
   users.push(user);
   saveUsers();
+  alert("User  added successfully.");
   window.location.href = "repository.html";
 }
 
@@ -31,6 +40,9 @@ function populateTable() {
       <td>${user.manager}</td>
       <td>${user.status}</td>
       <td>${user.role}</td>
+      <td>
+        <button onclick="toggleUser Status('${user.email}')">${user.status === "Active" ? "Disable" : "Enable"}</button>
+      </td>
     </tr>`;
     tbody.innerHTML += row;
   });
@@ -40,7 +52,7 @@ if (window.location.pathname.includes("repository.html")) {
   populateTable();
 }
 
-function searchUser() {
+function searchUser () {
   const email = document.getElementById("searchEmail").value;
   const user = users.find(u => u.email === email);
   if (user) {
@@ -52,11 +64,11 @@ function searchUser() {
     document.getElementById("editEmail").value = user.email;
     document.getElementById("editRole").value = user.role;
   } else {
-    alert("User not found");
+    alert("User  not found");
   }
 }
 
-function updateUser() {
+function updateUser () {
   const email = document.getElementById("editEmail").value;
   const user = users.find(u => u.email === email);
   if (user) {
@@ -66,18 +78,17 @@ function updateUser() {
     user.manager = document.getElementById("editManager").value;
     user.role = document.getElementById("editRole").value;
     saveUsers();
-    alert("User updated.");
+    alert("User  updated.");
     window.location.href = "repository.html";
   }
 }
 
-function disableUser() {
-  const email = document.getElementById("editEmail").value;
+function toggleUser Status(email) {
   const user = users.find(u => u.email === email);
   if (user) {
-    user.status = "Inactive";
+    user.status = user.status === "Active" ? "Inactive" : "Active";
     saveUsers();
-    alert("User disabled.");
-    window.location.href = "repository.html";
+    alert(`User  ${user.status === "Active" ? "enabled" : "disabled"} successfully.`);
+    populateTable(); // Refresh the table to reflect changes
   }
 }
