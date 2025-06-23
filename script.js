@@ -4,13 +4,13 @@ function saveUsers() {
   localStorage.setItem("users", JSON.stringify(users));
 }
 
-function submitUser () {
+function submitUser() {
   const email = document.getElementById("email").value;
-  // Check if user already exists
-  const existingUser  = users.find(u => u.email === email);
-  if (existingUser ) {
+  const existingUser = users.find(u => u.email === email);
+  
+  if (existingUser) {
     alert("Error: User already exists.");
-    return;
+    return false;
   }
 
   const user = {
@@ -19,20 +19,25 @@ function submitUser () {
     dept: document.getElementById("department").value,
     email: email,
     manager: document.getElementById("manager").value,
-    status: document.getElementById("status").value,
+    status: "Active",
     role: document.getElementById("role").value
   };
+  
   users.push(user);
   saveUsers();
-  alert("User  added successfully.");
+  alert("User added successfully!");
   window.location.href = "repository.html";
+  return false;
 }
 
 function populateTable() {
   const tbody = document.querySelector("#userTable tbody");
   tbody.innerHTML = "";
-  users.forEach(user => {
-    let row = `<tr>
+  
+  users.forEach((user) => {
+    const row = document.createElement("tr");
+    
+    row.innerHTML = `
       <td>${user.first}</td>
       <td>${user.last}</td>
       <td>${user.dept}</td>
@@ -41,20 +46,25 @@ function populateTable() {
       <td>${user.status}</td>
       <td>${user.role}</td>
       <td>
-        <button onclick="toggleUser Status('${user.email}')">${user.status === "Active" ? "Disable" : "Enable"}</button>
+        <button onclick="toggleUserStatus('${user.email}', this)" 
+                class="status-btn ${user.status === 'Active' ? 'btn-disable' : 'btn-enable'}">
+          ${user.status === 'Active' ? 'Disable' : 'Enable'}
+        </button>
       </td>
-    </tr>`;
-    tbody.innerHTML += row;
+    `;
+    
+    tbody.appendChild(row);
   });
 }
 
 if (window.location.pathname.includes("repository.html")) {
-  populateTable();
+  document.addEventListener('DOMContentLoaded', populateTable);
 }
 
-function searchUser () {
-  const email = document.getElementById("searchEmail").value;
-  const user = users.find(u => u.email === email);
+function searchUser() {
+  const email = document.getElementById("searchEmail").value.trim();
+  const user = users.find(u => u.email.toLowerCase() === email.toLowerCase());
+  
   if (user) {
     document.getElementById("editForm").style.display = "block";
     document.getElementById("editFirstName").value = user.first;
@@ -63,32 +73,44 @@ function searchUser () {
     document.getElementById("editManager").value = user.manager;
     document.getElementById("editEmail").value = user.email;
     document.getElementById("editRole").value = user.role;
+    document.getElementById("toggleUserBtn").textContent = user.status === "Active" ? "Disable" : "Enable";
   } else {
-    alert("User  not found");
+    alert("User not found!");
   }
 }
 
-function updateUser () {
+function updateUser() {
   const email = document.getElementById("editEmail").value;
   const user = users.find(u => u.email === email);
+  
   if (user) {
     user.first = document.getElementById("editFirstName").value;
     user.last = document.getElementById("editLastName").value;
     user.dept = document.getElementById("editDepartment").value;
     user.manager = document.getElementById("editManager").value;
     user.role = document.getElementById("editRole").value;
+    
     saveUsers();
-    alert("User  updated.");
+    alert("User updated successfully!");
     window.location.href = "repository.html";
   }
 }
 
-function toggleUser Status(email) {
+function toggleUserStatus(email, button) {
   const user = users.find(u => u.email === email);
   if (user) {
     user.status = user.status === "Active" ? "Inactive" : "Active";
+    
+    if (button) {
+      button.textContent = user.status === "Active" ? "Disable" : "Enable";
+      button.className = `status-btn ${user.status === 'Active' ? 'btn-disable' : 'btn-enable'}`;
+    }
+    
     saveUsers();
-    alert(`User  ${user.status === "Active" ? "enabled" : "disabled"} successfully.`);
-    populateTable(); // Refresh the table to reflect changes
+    alert(`User has been ${user.status === "Active" ? "enabled" : "disabled"}`);
+    
+    if (window.location.pathname.includes("repository.html")) {
+      populateTable();
+    }
   }
 }

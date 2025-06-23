@@ -3,19 +3,59 @@
 <head>
   <title>User Repository</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+    .status-btn {
+      padding: 5px 10px;
+      border: none;
+      border-radius: 4px;
+      color: white;
+      cursor: pointer;
+    }
+    .btn-disable {
+      background-color: #dc3545;
+    }
+    .btn-enable {
+      background-color: #28a745;
+    }
+  </style>
 </head>
 <body>
-  <div class="form-container">
-    <h2>User Repository</h2>
-    <table border="1" id="userTable">
-      <thead>
-        <tr>
-          <th>First</th><th>Last</th><th>Department</th><th>Email</th><th>Manager</th><th>Status</th><th>Role</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
-  </div>
+
+  <h2>User Repository</h2>
+
+  <table id="userTable">
+    <thead>
+      <tr>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Department</th>
+        <th>Email</th>
+        <th>Manager</th>
+        <th>Status</th>
+        <th>Role</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Dynamic rows will be inserted here -->
+    </tbody>
+  </table>
 
   <script src="script.js"></script>
 </body>
